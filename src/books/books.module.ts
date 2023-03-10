@@ -4,11 +4,11 @@ import { PrismaModule } from 'src/prisma/prisma.module';
 import { CqrsModule } from '@nestjs/cqrs';
 import { CommandHandlers } from './commands/handlers';
 import { QueryHandlers } from './queries/handlers';
-import { BookService } from './books.service';
+import { BooksService } from './books.service';
 
 @Module({
   controllers: [BooksController],
-  providers: [BookService, ...CommandHandlers, ...QueryHandlers],
+  providers: [BooksService, ...CommandHandlers, ...QueryHandlers],
   imports: [PrismaModule, CqrsModule],
 })
 export class BooksModule {}

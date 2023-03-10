@@ -10,7 +10,7 @@ import { CreateBookDto, UpdateBookDto } from './dto';
 import { GetBookByIdQuery, GetBooksQuery } from './queries/impl';
 
 @Injectable()
-export class BookService {
+export class BooksService {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly commandBuss: CommandBus,

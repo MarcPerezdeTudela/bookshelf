@@ -8,42 +8,42 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { BookService } from './books.service';
 import { BookEntity } from './domain/models';
+import { BooksService } from './books.service';
 import { CreateBookDto, UpdateBookDto } from './dto';
 
 @Controller('books')
 @ApiTags('books')
 export class BooksController {
-  constructor(private readonly bookService: BookService) {}
+  constructor(private readonly BooksService: BooksService) {}
 
   @Post()
   @ApiCreatedResponse({ type: BookEntity })
   create(@Body() createBookDto: CreateBookDto) {
-    return this.bookService.createBook(createBookDto);
+    return this.BooksService.createBook(createBookDto);
   }
 
   @Get()
   @ApiOkResponse({ type: BookEntity, isArray: true })
   findAll() {
-    return this.bookService.getAllBooks();
+    return this.BooksService.getAllBooks();
   }
 
   @Get(':id')
   @ApiOkResponse({ type: BookEntity })
   findOne(@Param('id') id: string) {
-    return this.bookService.getBookById(+id);
+    return this.BooksService.getBookById(+id);
   }
 
   @Patch(':id')
   @ApiOkResponse({ type: BookEntity })
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-    return this.bookService.updateBook(+id, updateBookDto);
+    return this.BooksService.updateBook(+id, updateBookDto);
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: BookEntity })
   remove(@Param('id') id: string) {
-    return this.bookService.deleteBook(+id);
+    return this.BooksService.deleteBook(+id);
   }
 }

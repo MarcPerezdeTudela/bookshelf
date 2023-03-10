@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { BooksController } from './books.controller';
-import { BookService } from './books.service';
+import { BooksService } from './books.service';
 import { CreateBookDto, UpdateBookDto } from './dto';
 import { mockBooks } from './mocks/books.mock';
 
@@ -12,7 +12,7 @@ describe('BooksController', () => {
       controllers: [BooksController],
       providers: [
         {
-          provide: BookService,
+          provide: BooksService,
           useValue: {
             getAllBooks: jest.fn().mockResolvedValue(mockBooks),
             getBookById: jest
