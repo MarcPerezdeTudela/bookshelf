@@ -70,8 +70,8 @@ describe('BooksController', () => {
     it('should update a book', async () => {
       const updateBookDTO: UpdateBookDto = mockBooks[1];
       expect(controller.update('1', updateBookDTO)).resolves.toEqual({
-        id: 2,
         ...mockBooks[1],
+        id: 2,
       });
     });
   });
