@@ -1,13 +1,15 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { Book } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { GetBookByIdQuery } from '../impl/get-book-by-id.query';
+import { BookEntity } from '../../domain/models';
+import { PrismaService } from 'src/prisma';
+import { GetBookByIdQuery } from '../impl';
 
 @QueryHandler(GetBookByIdQuery)
-export class GetBookByIdHandler implements IQueryHandler {
+export class GetBookByIdHandler
+  implements IQueryHandler<GetBookByIdQuery, BookEntity | null>
+{
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(query: GetBookByIdQuery): Promise<Book | null> {
+  async execute(query: GetBookByIdQuery): Promise<BookEntity | null> {
     return this.prisma.book.findUnique({ where: { id: query.id } });
   }
 }

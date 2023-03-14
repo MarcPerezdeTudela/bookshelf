@@ -1,48 +1,46 @@
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { Test, TestingModule } from '@nestjs/testing';
-import { BooksService } from './books.service';
+import { DeepMockProxy, mockDeep } from 'jest-mock-extended';
+import { BooksService } from './';
 import { CreateBookDto, UpdateBookDto } from './dto';
-import { mockBooks } from './mocks/books.mock';
+import { mockBooks } from './mocks';
 
 describe('BooksService', () => {
   let service: BooksService;
-  let queryBus: QueryBus;
-  let commandBus: CommandBus;
+  let queryBus: DeepMockProxy<QueryBus>;
+  let commandBus: DeepMockProxy<CommandBus>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      providers: [
-        BooksService,
-        {
-          provide: QueryBus,
-          useFactory: () => jest.fn(),
-        },
-        {
-          provide: CommandBus,
-          useFactory: () => jest.fn(),
-        },
-      ],
-    }).compile();
+      providers: [BooksService, QueryBus, CommandBus],
+    })
+      .overrideProvider(QueryBus)
+      .useValue(mockDeep<QueryBus>())
+      .overrideProvider(CommandBus)
+      .useValue(mockDeep<CommandBus>())
+      .compile();
 
     service = module.get<BooksService>(BooksService);
-    queryBus = module.get<QueryBus>(QueryBus);
-    commandBus = module.get<CommandBus>(CommandBus);
+    queryBus = module.get<DeepMockProxy<QueryBus>>(QueryBus);
+    commandBus = module.get<DeepMockProxy<CommandBus>>(CommandBus);
   });
 
   it('should be defined', () => {
     expect(service).toBeDefined();
+    expect(queryBus).toBeDefined();
+    expect(commandBus).toBeDefined();
   });
 
   it('should return an array with all the books', async () => {
-    queryBus.execute = jest.fn().mockResolvedValue(mockBooks);
-    expect(service.getAllBooks()).resolves.toEqual(mockBooks);
+    queryBus.execute.mockResolvedValueOnce(mockBooks);
+    expect(service.findAll()).resolves.toEqual(mockBooks);
   });
 
   it('should return a book by id', async () => {
     const id = 2;
     const book = mockBooks.find((book) => book.id === id);
-    queryBus.execute = jest.fn().mockResolvedValue(book);
-    expect(service.getBookById(id)).resolves.toEqual(book);
+    queryBus.execute.mockResolvedValueOnce(book);
+    expect(service.findOne(id)).resolves.toEqual(book);
   });
 
   it('should simulate create a book and return it', async () => {
@@ -52,8 +50,8 @@ describe('BooksService', () => {
       authorId: 1,
     };
     const book = { id: mockBooks.length + 1, ...createBookDto };
-    commandBus.execute = jest.fn().mockResolvedValue(book);
-    expect(service.createBook(createBookDto)).resolves.toEqual(book);
+    commandBus.execute.mockResolvedValueOnce(book);
+    expect(service.create(createBookDto)).resolves.toEqual(book);
   });
 
   it('should simulate update a book and return it', async () => {
@@ -64,14 +62,14 @@ describe('BooksService', () => {
       authorId: 1,
     };
     const book = { id, ...updateBookDto };
-    commandBus.execute = jest.fn().mockResolvedValue(book);
-    expect(service.updateBook(id, updateBookDto)).resolves.toEqual(book);
+    commandBus.execute.mockResolvedValueOnce(book);
+    expect(service.update(id, updateBookDto)).resolves.toEqual(book);
   });
 
   it('should simulate delete a book and return it', async () => {
     const id = 2;
     const book = mockBooks.find((book) => book.id === id);
-    commandBus.execute = jest.fn().mockResolvedValue(book);
-    expect(service.deleteBook(id)).resolves.toEqual(book);
+    commandBus.execute.mockResolvedValueOnce(book);
+    expect(service.remove(id)).resolves.toEqual(book);
   });
 });

@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { Book } from '@prisma/client';
+import { BookEntity } from '../../domain/models';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateBookCommand } from '../impl';
 
@@ -7,7 +7,7 @@ import { CreateBookCommand } from '../impl';
 export class CreateBookHandler implements ICommandHandler<CreateBookCommand> {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(command: CreateBookCommand): Promise<Book> {
+  async execute(command: CreateBookCommand): Promise<BookEntity> {
     const { createBookDto } = command;
     const newBook = await this.prisma.book.create({ data: createBookDto });
     return newBook;

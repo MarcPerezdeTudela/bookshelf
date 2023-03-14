@@ -16,26 +16,23 @@ export class BooksService {
     private readonly commandBuss: CommandBus,
   ) {}
 
-  async getAllBooks(): Promise<BookEntity[]> {
+  async findAll(): Promise<BookEntity[]> {
     return this.queryBus.execute(new GetBooksQuery());
   }
 
-  async getBookById(id: number): Promise<BookEntity> {
+  async findOne(id: number): Promise<BookEntity> {
     return this.queryBus.execute(new GetBookByIdQuery(id));
   }
 
-  async createBook(createBookDto: CreateBookDto): Promise<BookEntity> {
+  async create(createBookDto: CreateBookDto): Promise<BookEntity> {
     return this.commandBuss.execute(new CreateBookCommand(createBookDto));
   }
 
-  async updateBook(
-    id: number,
-    updateBookDto: UpdateBookDto,
-  ): Promise<BookEntity> {
+  async update(id: number, updateBookDto: UpdateBookDto): Promise<BookEntity> {
     return this.commandBuss.execute(new UpdateBookCommand(id, updateBookDto));
   }
 
-  async deleteBook(id: number): Promise<BookEntity> {
+  async remove(id: number): Promise<BookEntity> {
     return this.commandBuss.execute(new DeleteBookCommand(id));
   }
 }

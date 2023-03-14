@@ -7,7 +7,7 @@ export class BookEntity implements Book {
   @ApiProperty()
   title: string;
   @ApiProperty({ required: false, nullable: true })
-  publishedAt: Date;
+  publishedAt: Date | null;
   @ApiProperty()
   authorId: number;
 }

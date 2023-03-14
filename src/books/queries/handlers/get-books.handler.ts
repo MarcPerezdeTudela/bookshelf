@@ -1,15 +1,15 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { Book } from '@prisma/client';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { BookEntity } from '../../domain/models';
+import { PrismaService } from 'src/prisma';
 import { GetBooksQuery } from '../impl';
 
 @QueryHandler(GetBooksQuery)
 export class GetBooksQueryHandler
-  implements IQueryHandler<GetBooksQuery, Book[]>
+  implements IQueryHandler<GetBooksQuery, BookEntity[]>
 {
   constructor(private readonly prisma: PrismaService) {}
 
-  async execute(query: GetBooksQuery): Promise<Book[]> {
+  async execute(query: GetBooksQuery): Promise<BookEntity[]> {
     return this.prisma.book.findMany();
   }
 }

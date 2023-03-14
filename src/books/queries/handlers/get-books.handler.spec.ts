@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PrismaClient } from '@prisma/client';
 import { DeepMockProxy, mockDeep } from 'jest-mock-extended';
-import { mockBooks } from 'src/books/mocks/books.mock';
-import { PrismaService } from 'src/prisma/prisma.service';
+import { mockBooks } from 'src/books/mocks/';
+import { PrismaService } from 'src/prisma';
 import { GetBooksQuery } from '../impl';
-import { GetBooksQueryHandler } from './get-books.handler';
+import { GetBooksQueryHandler } from './';
 
 describe('GetBooksHandler', () => {
   let queryHandler: GetBooksQueryHandler;
