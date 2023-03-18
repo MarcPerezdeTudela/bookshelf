@@ -20,30 +20,30 @@ export class BooksController {
   @Post()
   @ApiCreatedResponse({ type: BookEntity })
   create(@Body() createBookDto: CreateBookDto) {
-    return this.booksService.create(createBookDto);
+    return this.booksService.createNewBook(createBookDto);
   }
 
   @Get()
   @ApiOkResponse({ type: BookEntity, isArray: true })
   findAll() {
-    return this.booksService.findAll();
+    return this.booksService.getAllBooks();
   }
 
   @Get(':id')
   @ApiOkResponse({ type: BookEntity })
   findOne(@Param('id') id: string) {
-    return this.booksService.findOne(+id);
+    return this.booksService.getBookById(+id);
   }
 
   @Patch(':id')
   @ApiOkResponse({ type: BookEntity })
   update(@Param('id') id: string, @Body() updateBookDto: UpdateBookDto) {
-    return this.booksService.update(+id, updateBookDto);
+    return this.booksService.updateBook(+id, updateBookDto);
   }
 
   @Delete(':id')
   @ApiOkResponse({ type: BookEntity })
   remove(@Param('id') id: string) {
-    return this.booksService.remove(+id);
+    return this.booksService.deleteBook(+id);
   }
 }

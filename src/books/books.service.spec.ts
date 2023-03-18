@@ -33,14 +33,14 @@ describe('BooksService', () => {
 
   it('should return an array with all the books', async () => {
     queryBus.execute.mockResolvedValueOnce(mockBooks);
-    expect(service.findAll()).resolves.toEqual(mockBooks);
+    expect(service.getAllBooks()).resolves.toEqual(mockBooks);
   });
 
   it('should return a book by id', async () => {
     const id = 2;
     const book = mockBooks.find((book) => book.id === id);
     queryBus.execute.mockResolvedValueOnce(book);
-    expect(service.findOne(id)).resolves.toEqual(book);
+    expect(service.getBookById(id)).resolves.toEqual(book);
   });
 
   it('should simulate create a book and return it', async () => {
@@ -51,7 +51,7 @@ describe('BooksService', () => {
     };
     const book = { id: mockBooks.length + 1, ...createBookDto };
     commandBus.execute.mockResolvedValueOnce(book);
-    expect(service.create(createBookDto)).resolves.toEqual(book);
+    expect(service.createNewBook(createBookDto)).resolves.toEqual(book);
   });
 
   it('should simulate update a book and return it', async () => {
@@ -63,13 +63,13 @@ describe('BooksService', () => {
     };
     const book = { id, ...updateBookDto };
     commandBus.execute.mockResolvedValueOnce(book);
-    expect(service.update(id, updateBookDto)).resolves.toEqual(book);
+    expect(service.updateBook(id, updateBookDto)).resolves.toEqual(book);
   });
 
   it('should simulate delete a book and return it', async () => {
     const id = 2;
     const book = mockBooks.find((book) => book.id === id);
     commandBus.execute.mockResolvedValueOnce(book);
-    expect(service.remove(id)).resolves.toEqual(book);
+    expect(service.deleteBook(id)).resolves.toEqual(book);
   });
 });

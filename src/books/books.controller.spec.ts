@@ -28,7 +28,7 @@ describe('BooksController', () => {
 
   describe('findAll', () => {
     it('should return an array of books', async () => {
-      service.findAll.mockResolvedValueOnce(mockBooks);
+      service.getAllBooks.mockResolvedValueOnce(mockBooks);
       expect(controller.findAll()).resolves.toEqual(mockBooks);
     });
   });
@@ -37,7 +37,7 @@ describe('BooksController', () => {
     it('should return a book', async () => {
       const id = '1';
       const book = mockBooks[0];
-      service.findOne.mockResolvedValueOnce(book);
+      service.getBookById.mockResolvedValueOnce(book);
       expect(controller.findOne(id)).resolves.toEqual(book);
     });
   });
@@ -46,7 +46,7 @@ describe('BooksController', () => {
     it('should create a book', async () => {
       const newBookDTO: CreateBookDto = new CreateBookDto();
       const book = mockBooks[0];
-      service.create.mockResolvedValueOnce(book);
+      service.createNewBook.mockResolvedValueOnce(book);
       expect(controller.create(newBookDTO)).resolves.toEqual(book);
     });
   });
@@ -56,7 +56,7 @@ describe('BooksController', () => {
       const id = '1';
       const updateBookDTO: UpdateBookDto = new UpdateBookDto();
       const book = { ...mockBooks[1], id: 2 };
-      service.update.mockResolvedValueOnce(book);
+      service.updateBook.mockResolvedValueOnce(book);
       expect(controller.update(id, updateBookDTO)).resolves.toEqual(book);
     });
   });
@@ -65,7 +65,7 @@ describe('BooksController', () => {
     it('should delete a book', async () => {
       const id = '1';
       const book = mockBooks[0];
-      service.remove.mockResolvedValueOnce(book);
+      service.deleteBook.mockResolvedValueOnce(book);
       expect(controller.remove(id)).resolves.toEqual(book);
     });
   });
