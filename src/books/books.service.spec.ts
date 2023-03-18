@@ -43,7 +43,7 @@ describe('BooksService', () => {
     expect(service.getBookById(id)).resolves.toEqual(book);
   });
 
-  it('should simulate create a book and return it', async () => {
+  it('should create a book and return it', async () => {
     const createBookDto: CreateBookDto = {
       title: 'Test Book',
       publishedAt: new Date(),
@@ -54,7 +54,7 @@ describe('BooksService', () => {
     expect(service.createNewBook(createBookDto)).resolves.toEqual(book);
   });
 
-  it('should simulate update a book and return it', async () => {
+  it('should update a book and return it', async () => {
     const id = 2;
     const updateBookDto: UpdateBookDto = {
       title: 'Test Update Book',
@@ -66,7 +66,7 @@ describe('BooksService', () => {
     expect(service.updateBook(id, updateBookDto)).resolves.toEqual(book);
   });
 
-  it('should simulate delete a book and return it', async () => {
+  it('should delete a book and return it', async () => {
     const id = 2;
     const book = mockBooks.find((book) => book.id === id);
     commandBus.execute.mockResolvedValueOnce(book);

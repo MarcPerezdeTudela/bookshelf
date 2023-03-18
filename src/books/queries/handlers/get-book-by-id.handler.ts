@@ -1,5 +1,5 @@
 import { IQueryHandler, QueryHandler } from '@nestjs/cqrs';
-import { BookEntity } from '../../domain/models';
+import { BookEntity } from '../../models';
 import { PrismaService } from 'src/prisma';
 import { GetBookByIdQuery } from '../impl';
 

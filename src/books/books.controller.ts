@@ -8,7 +8,7 @@ import {
   Delete,
 } from '@nestjs/common';
 import { ApiCreatedResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { BookEntity } from './domain/models';
+import { BookEntity } from './models';
 import { BooksService } from './';
 import { CreateBookDto, UpdateBookDto } from './dto';
 

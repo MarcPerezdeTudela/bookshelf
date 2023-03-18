@@ -5,7 +5,7 @@ import {
   DeleteBookCommand,
   UpdateBookCommand,
 } from './commands/impl';
-import { BookEntity } from './domain/models';
+import { BookEntity } from './models';
 import { CreateBookDto, UpdateBookDto } from './dto';
 import { GetBookByIdQuery, GetBooksQuery } from './queries/impl';
 

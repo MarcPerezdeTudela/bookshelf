@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
-import { BookEntity } from '../../domain/models';
+import { BookEntity } from '../../models';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { DeleteBookCommand } from '../impl/delete-book.command';
 

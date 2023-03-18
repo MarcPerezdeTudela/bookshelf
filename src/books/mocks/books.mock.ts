@@ -1,4 +1,4 @@
-import { BookEntity } from '../domain/models';
+import { BookEntity } from '../models';
 
 export const mockBooks: BookEntity[] = [
   {
