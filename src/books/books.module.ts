@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { BooksController } from './';
+import { BooksController } from './books.controller';
 import { PrismaModule } from 'src/prisma';
 import { CqrsModule } from '@nestjs/cqrs';
 import { CommandHandlers } from './commands/handlers';
