@@ -3,10 +3,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PrismaModule } from './prisma/prisma.module';
 import { BooksModule } from './books/books.module';
-import { EventEmitterModule } from '@nestjs/event-emitter';
+import { AuthorsModule } from './authors/authors.module';
 
 @Module({
-  imports: [PrismaModule, BooksModule, EventEmitterModule.forRoot()],
+  imports: [PrismaModule, BooksModule, AuthorsModule],
   controllers: [AppController],
   providers: [AppService],
 })
